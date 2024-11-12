@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVS - EquiLearn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .button {
+            border: 2px solid #f44336;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: #f44336;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .button:hover {
+            background-color: #f44336;
+            color: #fff;
+        }
+        .non-responsive {
+            color: grey;
+            border-color: grey;
+            cursor: not-allowed;
+        }
+        .topics-container, .notes-container {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            width: 80%;
+            max-width: 600px;
+            margin: auto;
+        }
+        .topics-container.active, .notes-container.active {
+            display: block;
+        }
+        .topic-button {
+            display: block;
+            border: 2px solid #4CAF50;
+            padding: 8px 16px;
+            margin: 5px 0;
+            border-radius: 8px;
+            color: #4CAF50;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            text-align: center;
+        }
+        .topic-button:hover {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>EVS - Classes</h1>
+    <div class="container">
+        <!-- Class buttons -->
+        <div class="button" onclick="showTopics(4)">Class 4</div>
+        <!-- Other class buttons are non-responsive -->
+        <div class="button non-responsive">Class 1</div>
+        <div class="button non-responsive">Class 2</div>
+        <div class="button non-responsive">Class 3</div>
+        <div class="button non-responsive">Class 5</div>
+        <div class="button non-responsive">Class 6</div>
+        <div class="button non-responsive">Class 7</div>
+        <div class="button non-responsive">Class 8</div>
+        <div class="button non-responsive">Class 9</div>
+        <div class="button non-responsive">Class 10</div>
+        <div class="button non-responsive">Class 11</div>
+        <div class="button non-responsive">Class 12</div>
+    </div>
+
+    <div class="topics-container" id="topics-container">
+        <h2>Class 4 - Topics</h2>
+        <div class="topic-button" onclick="showNotes()">Air Pollution</div>
+        <div class="topic-button non-responsive">Water Pollution</div>
+        <div class="topic-button non-responsive">Soil Erosion</div>
+        <div class="topic-button non-responsive">Wildlife Conservation</div>
+        <!-- Add more non-responsive topics as needed -->
+    </div>
+
+    <div class="notes-container" id="notes-container">
+        <h2>Air Pollution - Notes</h2>
+        <p>Air pollution is the presence of harmful substances in the air, often resulting from human activities such as industrial production, vehicle emissions, and waste burning. It has adverse effects on human health, the environment, and contributes to global warming.</p>
+        <ul>
+            <li>Major pollutants include carbon monoxide, sulfur dioxide, nitrogen oxides, and particulate matter.</li>
+            <li>Health effects can include respiratory issues, cardiovascular diseases, and aggravation of existing health conditions.</li>
+            <li>Prevention includes using cleaner energy sources, reducing vehicle emissions, and promoting public transportation.</li>
+        </ul>
+    </div>
+
+    <script>
+        function showTopics(classNumber) {
+            if (classNumber === 4) {
+                document.getElementById("topics-container").classList.add("active");
+                document.getElementById("notes-container").classList.remove("active");
+            }
+        }
+
+        function showNotes() {
+            document.getElementById("notes-container").classList.add("active");
+        }
+    </script>
+</body>
+</html>
