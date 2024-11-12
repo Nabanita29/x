@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Navigation Website</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+      padding: 20px;
+    }
+    .section {
+      padding: 50px;
+      margin: 20px auto;
+      background-color: white;
+      width: 80%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .hidden {
+      display: none;
+    }
+    #status {
+      text-align: center;
+      padding: 10px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Voice Navigation Website</h1>
+  <p id="status">Say: "Go to home", "Go to about", or "Go to contact"</p>
+
+  <div class="section" id="home-section">
+    <h2>Home Section</h2>
+    <p>Welcome to the Home section. Use voice commands to navigate.</p>
+  </div>
+
+  <div class="section hidden" id="about-section">
+    <h2>About Section</h2>
+    <p>This is the About section. Navigate using voice commands.</p>
+  </div>
+
+  <div class="section hidden" id="contact-section">
+    <h2>Contact Section</h2>
+    <p>This is the Contact section. Use voice navigation to explore.</p>
+  </div>
+
+  <script>
+    // Helper function to show the appropriate section
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => section.classList.add('hidden')); // Hide all sections
+      document.getElementById(sectionId).classList.remove('hidden'); // Show the desired section
+    }
+
+    // Voice recognition setup
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true; // Keep listening
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.onstart = () => {
+        document.getElementById('status').textContent = "Voice recognition active. Speak now!";
+      };
+
+      recognition.onresult = (event) => {
+        const command = event.results[event.resultIndex][0].transcript.trim().toLowerCase();
+        document.getElementById('status').textContent = `You said: "${command}"`;
+
+        if (command.includes('go to home')) {
+          showSection('home-section');
+        } else if (command.includes('go to about')) {
+          showSection('about-section');
+        } else if (command.includes('go to contact')) {
+          showSection('contact-section');
+        } else {
+          document.getElementById('status').textContent = `Command not recognized. Try again.`;
+        }
+      };
+
+      recognition.onend = () => {
+        recognition.start(); // Restart listening after it stops
+      };
+
+      recognition.start(); // Start voice recognition
+    } else {
+      document.getElementById('status').textContent = "Voice recognition not supported in this browser.";
+    }
+  </script>
+
+</body>
+</html>
