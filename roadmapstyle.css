@@ -1,0 +1,25 @@
+/* Title styling */
+.title {
+    text-align: center; /* Centers everything within the .title div */
+    margin: 20px 0;
+}
+
+/* Styling for the text and link */
+.title p {
+    font-size: 24px;
+    color: #333; /* Main text color */
+    display: inline-block; /* Ensures the text and link are on the same line */
+    margin: 0;
+}
+
+/* Link styling */
+.roadmap-link {
+    font-weight: bold;
+    color: pink;
+    text-decoration: none;
+}
+
+.roadmap-link:hover {
+    color: #ff69b4; /* Optional hover color */
+    text-decoration: underline;
+}
