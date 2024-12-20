@@ -8,9 +8,12 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
         h1 {
             color: #333;
+            margin-top: 20px;
         }
         .container {
             display: flex;
@@ -37,7 +40,7 @@
             border-color: grey;
             cursor: not-allowed;
         }
-        .topics-container, .notes-container {
+        .topics-container, .notes-container, .video-container {
             display: none;
             margin-top: 20px;
             text-align: left;
@@ -45,7 +48,7 @@
             max-width: 600px;
             margin: auto;
         }
-        .topics-container.active, .notes-container.active {
+        .topics-container.active, .notes-container.active, .video-container.active {
             display: block;
         }
         .topic-button {
@@ -64,17 +67,20 @@
             background-color: #4CAF50;
             color: #fff;
         }
+        iframe {
+            display: block;
+            margin: 10px auto;
+        }
     </style>
 </head>
 <body>
     <h1>EVS - Classes</h1>
+    <!-- Class Buttons -->
     <div class="container">
-        <!-- Class buttons -->
-        <div class="button" onclick="showTopics(4)">Class 4</div>
-        <!-- Other class buttons are non-responsive -->
         <div class="button non-responsive">Class 1</div>
         <div class="button non-responsive">Class 2</div>
         <div class="button non-responsive">Class 3</div>
+        <div class="button" onclick="showTopics(4)">Class 4</div>
         <div class="button non-responsive">Class 5</div>
         <div class="button non-responsive">Class 6</div>
         <div class="button non-responsive">Class 7</div>
@@ -85,36 +91,72 @@
         <div class="button non-responsive">Class 12</div>
     </div>
 
+    <!-- Topics for Class 4 -->
     <div class="topics-container" id="topics-container">
         <h2>Class 4 - Topics</h2>
-        <div class="topic-button" onclick="showNotes()">Air Pollution</div>
+        <div class="topic-button" onclick="showNotesAndVideo('air-pollution')">Air Pollution</div>
         <div class="topic-button non-responsive">Water Pollution</div>
         <div class="topic-button non-responsive">Soil Erosion</div>
         <div class="topic-button non-responsive">Wildlife Conservation</div>
-        <!-- Add more non-responsive topics as needed -->
     </div>
 
+    <!-- Notes Section -->
     <div class="notes-container" id="notes-container">
-        <h2>Air Pollution - Notes</h2>
-        <p>Air pollution is the presence of harmful substances in the air, often resulting from human activities such as industrial production, vehicle emissions, and waste burning. It has adverse effects on human health, the environment, and contributes to global warming.</p>
-        <ul>
-            <li>Major pollutants include carbon monoxide, sulfur dioxide, nitrogen oxides, and particulate matter.</li>
-            <li>Health effects can include respiratory issues, cardiovascular diseases, and aggravation of existing health conditions.</li>
-            <li>Prevention includes using cleaner energy sources, reducing vehicle emissions, and promoting public transportation.</li>
-        </ul>
+        <h2 id="notes-title"></h2>
+        <p id="notes-content"></p>
+        <ul id="notes-points"></ul>
     </div>
 
-    <script>
-        function showTopics(classNumber) {
-            if (classNumber === 4) {
-                document.getElementById("topics-container").classList.add("active");
-                document.getElementById("notes-container").classList.remove("active");
-            }
-        }
+   <!-- Video Section -->
+<div class="video-container" id="video-container">
+    <iframe id="topic-video" width="560" height="315" src="" title="YouTube video player"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+</div>
 
-        function showNotes() {
-            document.getElementById("notes-container").classList.add("active");
+<!-- JavaScript -->
+<script>
+    function showTopics(classNumber) {
+        if (classNumber === 4) {
+            document.getElementById("topics-container").classList.add("active");
+            document.getElementById("notes-container").classList.remove("active");
+            document.getElementById("video-container").classList.remove("active");
         }
-    </script>
+    }
+
+    function showNotesAndVideo(topic) {
+        const notesTitle = document.getElementById("notes-title");
+        const notesContent = document.getElementById("notes-content");
+        const notesPoints = document.getElementById("notes-points");
+        const videoFrame = document.getElementById("topic-video");
+
+        // Reset Notes
+        notesPoints.innerHTML = "";
+
+        if (topic === "air-pollution") {
+            // Show Notes
+            notesTitle.textContent = "Air Pollution - Notes";
+            notesContent.textContent = "Air pollution is the presence of harmful substances in the air, often resulting from human activities such as industrial production, vehicle emissions, and waste burning. It has adverse effects on human health, the environment, and contributes to global warming.";
+            const points = [
+                "Major pollutants include carbon monoxide, sulfur dioxide, nitrogen oxides, and particulate matter.",
+                "Health effects can include respiratory issues, cardiovascular diseases, and aggravation of existing health conditions.",
+                "Prevention includes using cleaner energy sources, reducing vehicle emissions, and promoting public transportation."
+            ];
+            points.forEach(point => {
+                const li = document.createElement("li");
+                li.textContent = point;
+                notesPoints.appendChild(li);
+            });
+
+            // Corrected YouTube Embed Link
+            videoFrame.src = "https://www.youtube.com/embed/t7Q7y_xjR5E"; 
+
+            // Display Notes and Video
+            document.getElementById("notes-container").classList.add("active");
+            document.getElementById("video-container").classList.add("active");
+        }
+    }
+</script>
+
 </body>
 </html>
